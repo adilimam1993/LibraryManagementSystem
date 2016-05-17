@@ -11,9 +11,8 @@ public class LoginJDBC {
 	
 	private static String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
 	private static String username = "root";
-	//private static String password = "";
-        private static String password = "admin";
-	
+	private static String password = "";
+        
 	
 	/**
 	 * Value when the an operation is successful

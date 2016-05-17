@@ -5,11 +5,13 @@ import java.util.Scanner;
 import library.income.IncomeCol;
 import static userinterface.LibrarianInterface.librarianInterface;
 import static userinterface.PatronInterface.patronInterface;
+import library.income.*;
+import java.util.Date;
 
 
 public class Main {
 
-    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income\n5. Create Patron Account\n0. Logout";
+    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income \n5.Insert Income\n0. Logout";
     public static final String patronMenu = "";
     
     
@@ -116,6 +118,15 @@ public class Main {
                                     break;
                                 case 4:
                                     System.out.println(income_collection.view('*').toString());
+                                case 5: 
+                                    System.out.println("Please Insert Patron's Id\n");
+                                    String tempId = scan.next();
+                                    System.out.println("Please enter the type of payment g for donation d for damages l for latapayment\n");
+                                    char typePay = scan.next().charAt(0);
+                                    System.out.println("Please enter the amount being paid\n");
+                                    double amount = scan.nextDouble();
+                                    income_collection.insert(new Income(tempId, typePay, amount, new Date()));
+                                    
                                     break;
                                 default:
                                     print("Type a valid options");
