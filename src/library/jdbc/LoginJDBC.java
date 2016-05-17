@@ -11,7 +11,8 @@ public class LoginJDBC {
 	
 	private static String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
 	private static String username = "root";
-	private static String password = "";
+	//private static String password = "";
+        private static String password = "admin";
 	
 	
 	/**
@@ -67,7 +68,7 @@ public class LoginJDBC {
 	public static boolean insertPatronLogin(PatronAccount associatedAccount){
 		Connection connection = null;
 		PreparedStatement statement = null;
-		String sql = "INSERT into patron_login (login_id, username, password) values (?, ?, ?)";
+		String sql = "INSERT into patron_login (patronId, username, password) values (?, ?, ?)";
 		try {
 			connection = DriverManager.getConnection(url,username,password);
 			statement = connection.prepareStatement(sql);
@@ -126,7 +127,7 @@ public class LoginJDBC {
 	public static boolean deletePatronLogin(PatronAccount associatedAccount){
 		Connection connection = null;
 		PreparedStatement statement;
-		String sql = "DELETE FROM patron_login WHERE login_id = ?";
+		String sql = "DELETE FROM patron_login WHERE patronId = ?";
 		try {
 			connection = DriverManager.getConnection(url,username,password);
 			statement = connection.prepareStatement(sql);
@@ -141,7 +142,7 @@ public class LoginJDBC {
 				connection.close();
 		
 		} catch (Exception e) {
-
+                        
 			return false;
 		}
 		
@@ -159,7 +160,7 @@ public class LoginJDBC {
 		
 		Connection connection = null;
 		PreparedStatement statement;
-		String sql = "update patron_login set username = ?, password = ? where login_id = ?";
+		String sql = "update patron_login set username = ?, password = ? where patronId = ?";
 		
 		try {
 			connection = DriverManager.getConnection(url,username,password);
@@ -229,7 +230,7 @@ public class LoginJDBC {
 	 		
 	 		Connection connection = DriverManager.getConnection(url,username,password);
 			
-	 		String sql =("select * from patron_login WHERE login_id = ?");
+	 		String sql =("select * from patron_login WHERE patronId = ?");
 			
 	 		PreparedStatement statement = connection.prepareStatement(sql);
 	 		
@@ -286,7 +287,7 @@ public class LoginJDBC {
 			a = new Login(set.getString(2),set.getString(3),set.getString(1));
 			
 	 	}catch(Exception e){
-	 		//e.printStackTrace();
+	 		e.printStackTrace();
                         
 	 	}
 		return a;

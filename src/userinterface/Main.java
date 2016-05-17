@@ -1,16 +1,15 @@
 package userinterface;
 
-import library.account.LoginCollection;
-import library.account.PatronAccount;
+import library.account.*;
 import java.util.Scanner;
-import library.account.Login;
 import library.income.IncomeCol;
 import static userinterface.LibrarianInterface.librarianInterface;
 import static userinterface.PatronInterface.patronInterface;
 
+
 public class Main {
 
-    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income\n0. Logout";
+    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income\n5. Create Patron Account\n0. Logout";
     public static final String patronMenu = "";
     
     
@@ -70,6 +69,9 @@ public class Main {
                                 case 4:
                                     System.out.println(income_collection.view('*').toString());
                                     break;
+                                case 5:
+                                    
+                                    break;
                                 default:
                                     print("Type a valid options");
                                     break;
@@ -124,7 +126,13 @@ public class Main {
                     }
                     break;
                 case 3:
-                    print("");
+                    PatronAccount p1 = PatronAccount.createPatronAccount();
+                        if(p1 == null)
+                            System.out.println("An error occured. The account was not created.");
+                        else{
+                           System.out.println("Account successfully created!");
+                           LoginCollection.insertPatronLogin(AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail()));
+                        }               
                     break;
                 default:
                     print("");

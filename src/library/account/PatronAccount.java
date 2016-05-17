@@ -255,7 +255,7 @@ public class PatronAccount extends Account {
         
         PatronAccount p1 = new PatronAccount(firstName, lastName, phoneNumber, address, email);
         
-        AccountJDBC a1 = new AccountJDBC();
+        //AccountJDBC a1 = new AccountJDBC();
         
         AccountJDBC.connect();
         boolean result = AccountCollection.insertPatron(p1);

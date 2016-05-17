@@ -1,6 +1,6 @@
 package library.account;
 
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.*;
 
 public class TypeSafe {

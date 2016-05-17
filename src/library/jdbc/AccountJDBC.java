@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.sql.*;
 import javax.sql.*;
 import library.account.*;
+import library.account.TypeSafe;
 import java.util.Date;
 
 public class AccountJDBC {
     private static String dbUrl = "jdbc:mysql://localhost:3306/library_system";
     private static String dbUsername = "root";
-    private static String dbPassword = "rafa2012";
+    //private static String dbPassword = "rafa2012";
+    private static String dbPassword = "admin";
     private static Connection myConn = null;
 
     public AccountJDBC() {
@@ -84,7 +86,7 @@ public class AccountJDBC {
      * @param address Street Address as String.
      * @return 
      */
-    public boolean insertPatron(String fName, String lName, String phone, String email, String address) {
+    public static boolean insertPatron(String fName, String lName, String phone, String email, String address) {
         int rowsAffected = 0;
         boolean successful = false;
         String mySQL;
@@ -102,14 +104,14 @@ public class AccountJDBC {
             prepMySQL.setString(5, address);
             
             successful = prepMySQL.execute();
-            return successful;
+            
         }
         
         catch (Exception exc) {
             exc.printStackTrace();
-            return successful;
+            return false;
         }
-                
+             return true;   
     }
     
     /*
@@ -195,6 +197,65 @@ public class AccountJDBC {
                 System.out.println("enter");
                     p1 = new PatronAccount(
                         myRs.getString(1),
+                        myRs.getString(2),
+                        myRs.getString(3),
+                        myRs.getString(4),
+                        myRs.getString(5),
+                        myRs.getString(6),
+                        myRs.getDouble(7));
+                                
+                
+                }
+                return p1;
+            }
+            catch (Exception exc) {
+                exc.printStackTrace();
+                return p1;
+            }
+        
+            
+	 }
+         
+         /**
+	 * Search Patron Account by ID number.
+         * 
+	 * @param  key  The account ID (library card number)
+	 * @return  myResultSet  SQL ResultSet object.
+	 */
+	 public static PatronAccount searchPatron(String first, String last, String email) {
+            int rowsAffected = 0;
+            boolean successful = false;
+            String mySQL = null;
+            PreparedStatement prepMySQL = null;
+            ResultSet myRs = null;
+            PatronAccount p1 = null;
+
+            mySQL =   "SELECT * "
+                    + "FROM library_system.patron "
+                    + "WHERE pFname = ? "
+                    + " AND pLname = ? "
+                    + " AND pEmail = ? ";
+
+            try {
+                prepMySQL = myConn.prepareStatement(mySQL);
+                prepMySQL.setString(1, first);
+                prepMySQL.setString(2, last);
+                prepMySQL.setString(3, email);
+                myRs = prepMySQL.executeQuery();
+                
+                if(myRs.next()){
+                
+                /*System.out.println(myRs.getString(1));
+                System.out.println(myRs.getString(2));
+                System.out.println(myRs.getString(3));
+                System.out.println(myRs.getString(4));
+                System.out.println(myRs.getString(5));
+                System.out.println(myRs.getString(6));
+                System.out.println(myRs.getString(7));
+                */               
+                //System.out.println("enter");
+                    p1 = new PatronAccount(
+                        myRs.getInt(1)+"",
                         myRs.getString(2),
                         myRs.getString(3),
                         myRs.getString(4),

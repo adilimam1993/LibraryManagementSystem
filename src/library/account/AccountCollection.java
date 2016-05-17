@@ -28,15 +28,18 @@ public class AccountCollection {
 	 * @return  returns either success or failed value.
 	 */
 	public static boolean insertPatron(PatronAccount pAccount){
-            AccountJDBC a1 = new AccountJDBC();
-            a1.connect();
-            boolean result = a1.insertPatron(pAccount.getFirstName(),
+            //AccountJDBC a1 = new AccountJDBC();
+            AccountJDBC.connect();
+            boolean result = AccountJDBC.insertPatron(pAccount.getFirstName(),
                     pAccount.getLastName(),
                     pAccount.getPhoneNumber(),
                     pAccount.getEmail(),
                     pAccount.getAddress());
 	    return result;
 	}
+        public static PatronAccount searchPatron(String first, String last, String email) {
+            return AccountJDBC.searchPatron(first, last, email);
+        }
 	/**
 	 * Insert Staff Account
 	 * 
