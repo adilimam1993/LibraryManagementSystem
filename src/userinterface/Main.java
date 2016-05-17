@@ -8,7 +8,6 @@ import static userinterface.PatronInterface.patronInterface;
 import library.income.*;
 import java.util.Date;
 
-
 public class Main {
 
     public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income \n5.Insert Income\n0. Logout";
@@ -136,6 +135,7 @@ public class Main {
 
                     }
                     break;
+                    
                 case 3:
                     PatronAccount p1 = PatronAccount.createPatronAccount();
                         if(p1 == null)
