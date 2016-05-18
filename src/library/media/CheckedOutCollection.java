@@ -1,6 +1,7 @@
 package library.media;
-
+import library.jdbc.CheckedOutJdbcClass;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 /**
  * CheckedOutCollection is the collection of all Media that has been checked out
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  *
  * @author <a href="abasit1@oldwestbury.edu">Abdul Basit</a>
  */
+import java.sql.SQLException;
 public class CheckedOutCollection {
 
     private ArrayList<CheckedOutMedia> checkmedia = new ArrayList();
@@ -97,5 +99,70 @@ public class CheckedOutCollection {
     public ArrayList<CheckedOutMedia> getMedia() {
         return checkmedia;
     }
-
+    
+    
+       /**
+     * @author Khizar Alvi
+     * This method uses JDBC to retrieve Patron Emails and
+     * his/her due dates from the checkedOutMedia table in Database, stores them
+     * into
+     * String and Date arrayLists and compares the difference of due dates
+     * with the current date using the Java.util.date and joda.time.DateTime
+     * class.
+     * @return an ArrayList of DueDates
+     * @throws java.sql.SQLException Throughs exception
+     */
+    public boolean checkDueDates () {
+       
+       CheckedOutJdbcClass c1 = new CheckedOutJdbcClass();
+       try {
+           c1.checkDueDates();
+       } 
+       catch (SQLException ex) {
+          ex.printStackTrace();
+       }
+       return true;
+    }
+    
+    
+    
+       /**
+     * @author Khizar Alvi
+     * This method uses Java.mail.Api and JDBC class to
+     * retrieve Patron emails from checkedOutMedia table in Database and send
+     * email notifications to the Patrons who have missed Due Date of their
+     * return of media
+     * @return returns true on successful delivery of email
+     */
+    public boolean sendLateNotificaton () {
+        CheckedOutJdbcClass c1 = new CheckedOutJdbcClass();
+        try {
+            c1.SendLateNotification();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
+    
+    
+      /**
+     * @author Khizar Alvi
+     * This method uses Java.mail.Api and JDBC class to
+     * retrieve Patron emails from checkedOutMedia table in Database and send
+     * due date email notifications to the Patrons who have two days left to
+     * return their media
+     * @return returns true on successful delivery of email
+     */
+    public boolean sendDueDateNotification () {
+        CheckedOutJdbcClass c1 = new CheckedOutJdbcClass();
+        try {
+            c1.SendDueDateNotification();
+        }
+        catch (SQLException ex) {
+         ex.printStackTrace();
+        }
+        return true; 
+    }
+    
 }

@@ -1,5 +1,5 @@
 package library.account;
-
+import library.jdbc.AccountJDBC;
 /**
  * Bridge class between database and software for the Accounts class
  * @author Benny Pena
@@ -20,6 +20,11 @@ public class AccountCollection {
 	 * Value when the operation fails
 	 */
 	public static final boolean FAILED = false;
+        
+        public AccountCollection()
+        {
+            
+        }
 
 	/**
 	 * Insert Patron Account
@@ -137,7 +142,35 @@ public class AccountCollection {
 	 	return resultList;
 	 }
          
+          /**
+          * @author Elbin Martinez
+          * apply late fee method-- <BR>
+          * This method applys late fees to all accounts that have late 
+          * media out and have not returned it
+          * @return boolean, to show it was completed or not 
+          */
+         public boolean applyLateFees()
+         {
+            //Account jdbc to bridge methods
+            AccountJDBC jdb = new AccountJDBC();
+            return jdb.applyLateFees();  
+         }
          
+          /**
+          * @author Elbin Martinez
+          * This method will update the chosen patrons 
+          * balance by adding the amount passed to their
+          * current balance
+          * @param id, the patron id of patron you want to bill
+          * @param amountToAdd, the amount to be added to balance
+          * @return boolean true if successful
+          */
+         public boolean updateBalance(String id, double amount)
+         {
+             //Account jdbc to bridge methods
+            AccountJDBC jdb= new AccountJDBC();
+            return jdb.updateBalance(id, amount);
+         }
 	 
 	 
 }
