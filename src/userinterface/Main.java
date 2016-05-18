@@ -13,10 +13,15 @@ import static userinterface.PatronInterface.patronInterface;
 import library.income.*;
 import java.util.Date;
 import library.jdbc.CheckedOutJdbcClass;
+import library.account.*;
 
 public class Main {
 
-    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account\n2. Media Managment\n3. Update Account\n4. View Income\n5. Insert Incom\n6. Check Media Due Dates\n7. Send Late Notifications\n8. Send Due Date Notificationsn\n0. Logout";
+    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account"
+            + "\n2. Media Managment\n3. Update Account\n4. View Income\n5. Insert Incom\n6. Check Media Due Dates\n"
+            + "7. Send Late Notifications\n"
+            + "8. Send Due Date Notifications\n"
+            + "9. Apply Late Fees\n0. Logout";
     public static final String patronMenu = "";
 
     public static void main(String[] args) {
@@ -27,6 +32,8 @@ public class Main {
         Login a;
         PatronAccount p;
         IncomeCol income_collection = new IncomeCol();
+        AccountCollection account_collection = new AccountCollection();
+        boolean appliedLateFee = false;
         CheckedOutJdbcClass c1 = new CheckedOutJdbcClass();
 
         String user;
@@ -95,6 +102,26 @@ public class Main {
                                     case 8:
                                         c1.SendDueDateNotification();
                                         break;
+                                    case 9:
+                                        if(appliedLateFee)
+                                        {
+                                            System.out.println("Late Fee's have already been applied today.");
+                                        }
+                                        else
+                                        {
+                                            if(account_collection.applyLateFees())
+                                            {
+                                                System.out.println("Late Fee were successful applied.");
+                                                appliedLateFee = true; 
+                                            }
+                                            else
+                                            {
+                                                System.out.println("Something went wrong and late fee's were not applied");
+                                            }
+                                        }
+                                        break;
+                                        
+                                        
                                     default:
                                         print("Type a valid options");
                                         break;

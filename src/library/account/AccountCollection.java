@@ -1,5 +1,5 @@
 package library.account;
-
+import library.jdbc.AccountJDBC;
 /**
  * Bridge class between database and software for the Accounts class
  * @author Benny Pena
@@ -20,6 +20,11 @@ public class AccountCollection {
 	 * Value when the operation fails
 	 */
 	public static final boolean FAILED = false;
+        
+        public AccountCollection()
+        {
+            
+        }
 
 	/**
 	 * Insert Patron Account
@@ -134,7 +139,19 @@ public class AccountCollection {
 	 	return resultList;
 	 }
          
+         public boolean applyLateFees()
+         {
+            //Account jdbc to bridge methods
+            AccountJDBC jdb = new AccountJDBC();
+            return jdb.applyLateFees();  
+         }
          
+         public boolean billAccount(String id, double amount)
+         {
+             //Account jdbc to bridge methods
+            AccountJDBC jdb= new AccountJDBC();
+            return jdb.updateBalance(id, amount);
+         }
 	 
 	 
 }

@@ -7,9 +7,9 @@ import library.account.*;
 import java.util.Date;
 
 public class AccountJDBC {
-    private static String dbUrl = "jdbc:mysql://localhost:3306/library_system";
+    private static String dbUrl = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
     private static String dbUsername = "root";
-    private static String dbPassword = "rafa2012";
+    private static String dbPassword = "    ";
     private static Connection myConn = null;
 
     public AccountJDBC() {
@@ -276,7 +276,7 @@ public class AccountJDBC {
 	{
 		connect();
 		try	{
-			String query = "select * from checkedoutmediacoll";
+			String query = "select * from checkedoutmedia";
 			Statement stmt = myConn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
@@ -308,17 +308,17 @@ public class AccountJDBC {
 	{
 		try{
 			connect();
-			String query = "select * from patron where patronId = ?";
+			String query = "select * from patron where pID = ?";
 			PreparedStatement stmt = myConn.prepareStatement(query);
 			stmt.setString(1,id);
 			ResultSet rs = stmt.executeQuery();
 			double current = 0;
 			if (rs.next())
 			{
-			current = rs.getDouble("balance");
+			current = rs.getDouble("pBalance");
 			}
 			current = current + amountToAdd;
-			String query1 = "update patron set balance = ? where patronId = ?";
+			String query1 = "update patron set pBalance = ? where pID = ?";
 			PreparedStatement prestmt = myConn.prepareStatement(query1);
 			prestmt.setDouble(1, current);
 			prestmt.setString(2, id);

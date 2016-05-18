@@ -163,7 +163,7 @@ public class CheckedOutJdbcClass {
 
         String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
         String user = "root";
-        String password = "";
+        String password = "    ";
 
         try {
             con = DriverManager.getConnection(url, user, password);
@@ -223,12 +223,12 @@ public class CheckedOutJdbcClass {
 		 
 		for (int i = 0; i < dueDates.size(); i++) {
 			int differenceOfDays = Days.daysBetween(new DateTime(dueDates.get(i)), new DateTime(currentDate)).getDays();
-			if (differenceOfDays > 2) {
+			if (differenceOfDays > 0) {
 				System.out.println (PatronEmails.get(i)+ " is " + differenceOfDays + " days behind of his/her Media DueDate");
 				DueDatesDifference.add(dueDates.get(i));
 			}
 				
-			else if (Math.abs(differenceOfDays) == 2){
+			else if (differenceOfDays < 0){
 				System.out.println (PatronEmails.get(i)+ " has " + Math.abs(differenceOfDays) + " days left to his/her approaching DueDate");
 				DueDatesDifference.add(dueDates.get(i));
 			}
