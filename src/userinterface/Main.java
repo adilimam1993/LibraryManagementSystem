@@ -154,7 +154,7 @@ public class Main {
                     user = scan.next();
                     System.out.print("Password: ");
                     pass = scan.next();
-                    a = LoginCollection.loginStaff(user, pass);
+                    a = LoginCollection.loginPatron(user, pass);
 
                     if (a == null) {
                         login = false;

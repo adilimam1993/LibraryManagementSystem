@@ -108,4 +108,18 @@ public class LoginCollection {
                     return null;
                 }
 	}
+
+    public static Login loginPatron(String user, String pass) {
+        Login l = LoginJDBC.searchPatronUsername(user);
+                if(l != null){
+                    if(l.getPassword().equals(pass))
+			return l;
+                    else{
+			return null;
+                    }
+                }
+                else{
+                    return null;
+                }
+    }
 }
