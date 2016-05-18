@@ -12,8 +12,8 @@ import static userinterface.LibrarianInterface.librarianInterface;
 import static userinterface.PatronInterface.patronInterface;
 import library.income.*;
 import java.util.Date;
-import library.jdbc.CheckedOutJdbcClass;
 import library.account.*;
+import library.media.CheckedOutCollection;
 
 public class Main {
 
@@ -33,8 +33,9 @@ public class Main {
         PatronAccount p;
         IncomeCol income_collection = new IncomeCol();
         AccountCollection account_collection = new AccountCollection();
+        CheckedOutCollection checkedOutCollection = new CheckedOutCollection ();
         boolean appliedLateFee = false;
-        CheckedOutJdbcClass c1 = new CheckedOutJdbcClass();
+      
 
         String user;
         String pass;
@@ -61,7 +62,7 @@ public class Main {
                         login = true;
                         System.out.println("\n\n======== Welcome " + a.getUsername() + " ========");
 
-                        try {
+                        
                             while (login) {
 
                                 System.out.println(staffMenu);
@@ -94,13 +95,13 @@ public class Main {
                                         income_collection.insert(new Income(tempId, typePay, amount, new Date()));
                                         break;
                                     case 6:
-                                        c1.checkDueDates();
+                                        checkedOutCollection.checkDueDates();
                                         break;
                                     case 7:
-                                        c1.SendLateNotification();
+                                        checkedOutCollection.sendLateNotificaton();
                                         break;
                                     case 8:
-                                        c1.SendDueDateNotification();
+                                        checkedOutCollection.sendDueDateNotification();
                                         break;
                                     case 9:
                                         if(appliedLateFee)
@@ -127,9 +128,7 @@ public class Main {
                                         break;
                                 }
                             }
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
+                        
                     }
                     break;
 

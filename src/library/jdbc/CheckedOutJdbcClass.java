@@ -163,7 +163,7 @@ public class CheckedOutJdbcClass {
 
         String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
         String user = "root";
-        String password = "    ";
+        String password = "";
 
         try {
             con = DriverManager.getConnection(url, user, password);
@@ -218,7 +218,7 @@ public class CheckedOutJdbcClass {
 		PatronEmails.add(rs.getString("patronEmail"));
 	}
 		for (int i = 0; i < dueDates.size(); i++){
-		        System.out.println(dueDates.get(i));
+		        System.out.println(PatronEmails.get(i) + ": " + dueDates.get(i));
 		}
 		 
 		for (int i = 0; i < dueDates.size(); i++) {
@@ -343,7 +343,7 @@ public class CheckedOutJdbcClass {
 				message.setFrom(new InternetAddress(from));
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(PatronEmails.get(i)));
 				message.setSubject("Due Date Reminder!");
-				message.setText("Please be advised that Your due date is approaching in two days. Please return your media to the library before the due date or you'll be charged late fee. Thank You!");
+				message.setText("Please be advised that your due date to return your media is " + DueDates.get(i) + ". Please return your media to the library before the due date or you'll be charged late fees. Thank You!");
 				Transport.send(message);
 				System.out.println("Email sent to " + PatronEmails.get(i) + " successfully!");
 			  }
