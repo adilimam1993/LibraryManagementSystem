@@ -14,7 +14,7 @@ import library.jdbc.*;
 public class patronTest {
     
     public static void main(String[] args) {
-        AccountJDBC.connect();
+        //AccountJDBC.connect();
         //PatronAccount.createPatronAccount();
         PatronAccount p1 = AccountCollection.searchPatronByID("1");
         System.out.println("test");

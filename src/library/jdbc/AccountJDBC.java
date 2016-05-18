@@ -298,12 +298,17 @@ public class AccountJDBC {
 
 		return true;
 	}
-	/**
-	 * 
-	 * @param id
-	 * @param amountToAdd
-	 * @return
-	 */
+
+         
+         /**
+          * @author Elbin Martinez
+          * This method will update the chosen patrons 
+          * balance by adding the amount passed to their
+          * current balance
+          * @param id, the patron id of patron you want to bill
+          * @param amountToAdd, the amount to be added to balance
+          * @return boolean true if successful
+          */
 	public boolean updateBalance(String id, double amountToAdd)
 	{
 		try{

@@ -103,6 +103,8 @@ public class Main {
                                     case 8:
                                         checkedOutCollection.sendDueDateNotification();
                                         break;
+                                        
+                                        //Elbin Set Case to apply late fees
                                     case 9:
                                         if(appliedLateFee)
                                         {
@@ -119,6 +121,21 @@ public class Main {
                                             {
                                                 System.out.println("Something went wrong and late fee's were not applied");
                                             }
+                                        }
+                                        break;
+                                    //Elbin set case to bill a patron for any damages    
+                                    case 10:
+                                        System.out.println("Please enter the patron Id you want to bill.");
+                                        String idToBill = scan.next();
+                                        System.out.println("Please enter the amount to bill account.");
+                                        double amountToBill = scan.nextDouble();
+                                        if(account_collection.updateBalance(idToBill, amountToBill))
+                                        {
+                                            System.out.println("The Account has been successfully billed.");
+                                        }
+                                        else
+                                        {
+                                            System.out.println("Something went wrong account was not billed.");
                                         }
                                         break;
                                         
