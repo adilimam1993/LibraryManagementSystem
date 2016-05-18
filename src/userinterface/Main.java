@@ -21,7 +21,7 @@ public class Main {
             + "\n2. Media Managment\n3. Update Account\n4. View Income\n5. Insert Incom\n6. Check Media Due Dates\n"
             + "7. Send Late Notifications\n"
             + "8. Send Due Date Notifications\n"
-            + "9. Apply Late Fees\n0. Logout";
+            + "9. Apply Late Fees\n10. Bill Account\n0. Logout";
     public static final String patronMenu = "";
 
     public static void main(String[] args) {
