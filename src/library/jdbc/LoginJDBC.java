@@ -306,7 +306,7 @@ public class LoginJDBC {
 			ResultSet set = statement.executeQuery();
 			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
+			a = new Login(set.getString(1),set.getString(2),set.getString(3));
 			
 	 	}catch(Exception e){
 	 		e.printStackTrace();
