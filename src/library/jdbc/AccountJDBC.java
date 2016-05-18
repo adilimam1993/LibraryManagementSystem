@@ -10,7 +10,7 @@ import java.util.Date;
 public class AccountJDBC {
     private static String dbUrl = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
     private static String dbUsername = "root";
-    private static String dbPassword = "    ";
+    private static String dbPassword = "";
     private static Connection myConn = null;
 
     public AccountJDBC() {
@@ -86,7 +86,7 @@ public class AccountJDBC {
      * @return 
      */
     public static boolean insertPatron(String fName, String lName, String phone, String email, String address) {
-        int rowsAffected = 0;
+        //int rowsAffected = 0;
         boolean successful = false;
         String mySQL;
         PreparedStatement prepMySQL;
@@ -110,7 +110,8 @@ public class AccountJDBC {
             exc.printStackTrace();
             return false;
         }
-             return true;   
+        
+        return true;   
     }
     
     /*
@@ -141,6 +142,8 @@ public class AccountJDBC {
 	public static boolean updatePatron(Account patron) {
 	    return SUCCESS;
 	}
+        
+        
 
 	/**
 	 * Delete Patron Account
@@ -184,7 +187,7 @@ public class AccountJDBC {
                 myRs = prepMySQL.executeQuery();
                 
                 if(myRs.next()){
-                
+            /*    
                 System.out.println(myRs.getString(1));
                 System.out.println(myRs.getString(2));
                 System.out.println(myRs.getString(3));
@@ -192,8 +195,8 @@ public class AccountJDBC {
                 System.out.println(myRs.getString(5));
                 System.out.println(myRs.getString(6));
                 System.out.println(myRs.getString(7));
-                               
-                System.out.println("enter");
+            */                   
+              
                     p1 = new PatronAccount(
                         myRs.getString(1),
                         myRs.getString(2),
