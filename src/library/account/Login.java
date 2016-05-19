@@ -126,7 +126,7 @@ public class Login {
 	
         @Override
 	public String toString(){
-		return "\n=======================\nUsername: "+username +"\nPassword: "+password+"\n" +"ID: " + userID+"\n=======================\n";
+		return "\n=======================\nUsername: "+username +"\nPassword: "+password+"\n=======================\n";
 	}
 		
 }

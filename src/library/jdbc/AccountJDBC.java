@@ -11,28 +11,9 @@ public class AccountJDBC {
     private static String dbUrl = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
     private static String dbUsername = "root";
     private static String dbPassword = "";
-    private static Connection myConn = null;
+   
 
-    public AccountJDBC() {
-    }
-    
-    public AccountJDBC(String url, String username, String password) {
-        dbUrl = url;
-        dbUsername = username;
-        dbPassword = password;
-    }
-    
-    //CONNECT
-    public static void connect() {
-       
-        try {
-            // 1. Get a connection to database
-            myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-        }
-        catch (Exception exc) {
-            exc.printStackTrace();
-        }
-    }
+   
 
     //INSERT
     /*
@@ -95,7 +76,7 @@ public class AccountJDBC {
                 + "VALUES (?,?,?,?,?)";
         
         try {
-            myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+            Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             prepMySQL = myConn.prepareStatement(mySQL);
             prepMySQL.setString(1, fName);
             prepMySQL.setString(2, lName);
@@ -157,7 +138,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, p1.getFirstName());
                 prepMySQL.setString(1, p1.getLastName());
@@ -188,7 +169,7 @@ public class AccountJDBC {
             mySQL = "UPDATE patron SET pFname = ? WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newFname);
                 prepMySQL.setInt(2, Integer.parseInt(pID));
@@ -217,7 +198,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newLname);
                 prepMySQL.setString(2, pID);
@@ -246,7 +227,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newPhone);
                 prepMySQL.setString(2, pID);
@@ -275,7 +256,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newEmail);
                 prepMySQL.setString(2, pID);
@@ -304,7 +285,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newAddress);
                 prepMySQL.setString(2, pID);
@@ -333,7 +314,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setDouble(1, newBalance);
                 prepMySQL.setString(2, pID);
@@ -390,7 +371,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setInt(1, Integer.parseInt(key));
 
@@ -398,16 +379,6 @@ public class AccountJDBC {
                 
                 if(myRs.next()){
                 
-                //myRs.next();
-                
-//                System.out.println(myRs.getString(1));
-//                System.out.println(myRs.getString(2));
-//                System.out.println(myRs.getString(3));
-//                System.out.println(myRs.getString(4));
-//                System.out.println(myRs.getString(5));
-//                System.out.println(myRs.getString(6));
-//                System.out.println(myRs.getString(7));
-                               
               
                     p1 = new PatronAccount(
                         myRs.getInt(1)+"",
@@ -452,6 +423,7 @@ public class AccountJDBC {
                     + " AND pEmail = ? ";
 
             try {
+                Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, first);
                 prepMySQL.setString(2, last);
@@ -459,16 +431,7 @@ public class AccountJDBC {
                 myRs = prepMySQL.executeQuery();
                 
                 if(myRs.next()){
-                
-                /*System.out.println(myRs.getString(1));
-                System.out.println(myRs.getString(2));
-                System.out.println(myRs.getString(3));
-                System.out.println(myRs.getString(4));
-                System.out.println(myRs.getString(5));
-                System.out.println(myRs.getString(6));
-                System.out.println(myRs.getString(7));
-                */               
-                //System.out.println("enter");
+               
                     p1 = new PatronAccount(
                         myRs.getInt(1)+"",
                         myRs.getString(2),
@@ -480,13 +443,15 @@ public class AccountJDBC {
                                 
                 
                 }
-                return p1;
+                myRs.close();
+                myConn.close();
+                
             }
             catch (Exception exc) {
                 exc.printStackTrace();
-                return p1;
+                
             }
-        
+            return p1;
             
 	 }
 	 
@@ -548,10 +513,10 @@ public class AccountJDBC {
           * media out and have not returned it
           * @return boolean, to show it was completed or not 
           */
-         public boolean applyLateFees()
+         public static boolean applyLateFees()
 	{
-		connect();
 		try	{
+                        Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 			String query = "select * from checkedoutmedia";
 			Statement stmt = myConn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -566,6 +531,7 @@ public class AccountJDBC {
 
 				}
 			}
+                        myConn.close();
 		}
 		catch(SQLException ex)
 		{
@@ -585,10 +551,10 @@ public class AccountJDBC {
           * @param amountToAdd, the amount to be added to balance
           * @return boolean true if successful
           */
-	public boolean updateBalance(String id, double amountToAdd)
+	public static boolean updateBalance(String id, double amountToAdd)
 	{
 		try{
-			connect();
+			Connection myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 			String query = "select * from patron where pID = ?";
 			PreparedStatement stmt = myConn.prepareStatement(query);
 			stmt.setString(1,id);
@@ -606,7 +572,7 @@ public class AccountJDBC {
 			
 			prestmt.executeUpdate();
 			
-			
+			myConn.close();
 		}
 		catch(SQLException ex)
 		{

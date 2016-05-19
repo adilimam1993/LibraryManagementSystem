@@ -248,13 +248,15 @@ public class Main {
     }
 
     private static void staffAccountInterface(Scanner scan, Login login) {
-        System.out.println("\n\n\n=========MENU OPTIONS:=========\n"
+        
+        int input;
+        do {
+             System.out.println("\n\n=========MENU OPTIONS:=========\n"
                 + "1. View Login\n"
                 + "2. Change Password\n"
                 + "3. Create New Patron Account\n"
-                + "0. Exit");
-        int input;
-        do {
+                + "0. Exit\n");
+             System.out.print("Please enter an input: ");
            try{
                 input = scan.nextInt();
             }catch(InputMismatchException e){
@@ -405,7 +407,8 @@ public class Main {
             p1 = AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail());
             LoginCollection.insertPatronLogin(p1);
             Login l = LoginCollection.searchPatronLogin(p1.getId());
-            //Output anything you want with Login l and p1                  
+            //Output anything you want with Login l and p1
+            System.out.println(l.toString() + p1.toString());
         }             
     }
 }
