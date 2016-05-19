@@ -18,12 +18,23 @@ import library.media.CheckedOutCollection;
 
 public class Main {
 
-    public static final String staffMenu = "\n\n\n=========MENU OPTIONS:=========\n1. Look up Account"
-            + "\n2. Media Managment\n3. Update Account\n4. View Income\n5. Insert Incom\n6. Check Media Due Dates\n"
+    public static final String staffMenu = 
+            "\n\n\n=========MENU OPTIONS:=========\n"
+            + "1. Edit Your Account\n"
+            + "2. Media Managment\n"
+            + "3. Look up Accounts\n"
+            + "4. View Income\n"
+            + "5. Insert Income\n"
+            + "6. Check Media Due Dates\n"
             + "7. Send Late Notifications\n"
             + "8. Send Due Date Notifications\n"
-            + "9. Apply Late Fees\n10. Bill Account\n0. Logout";
-    public static final String patronMenu = "";
+            + "9. Apply Late Fees\n"
+            + "10. Bill Account\n"
+            + "0. Logout";
+    public static final String patronMenu = "\n\n\n=========MENU OPTIONS:=========\n"
+            + "1. Edit Your Account\n"
+            //Add use cases for patron
+            + "0. Logout";;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -43,7 +54,13 @@ public class Main {
 
         while (!login) {
             
-            System.out.print("\n\n\n=========MENU OPTIONS:=========\n1. Staff Login\n2. Patron Login\n3. Register (Patron Only)\n0. Exit\nType an option: ");
+            System.out.print(
+                    "\n\n\n=========MENU OPTIONS:=========\n"
+                    + "1. Staff Login\n"
+                    + "2. Patron Login\n"
+                    + "3. Recover Password\n"
+                    + "0. Exit\n"
+                    + "Type an option: ");
             try{
                 input = scan.nextInt();
             }catch(InputMismatchException e){
@@ -82,12 +99,14 @@ public class Main {
                                         System.out.println("Bye bye!");
                                         break;
                                     case 1:
+                                        //edit self account And update
                                         staffAccountInterface(scan, a);
                                         break;
                                     case 2:
                                         librarianInterface();
                                         break;
                                     case 3:
+                                        // look up other account
                                         break;
                                     case 4:
                                         System.out.println(income_collection.view('*').toString());
@@ -172,7 +191,7 @@ public class Main {
 
                         while (login) {
 
-                            System.out.println(staffMenu);
+                            System.out.println(patronMenu);
                             System.out.print("Please enter an option: ");
 
                             input = scan.nextInt();
@@ -216,7 +235,11 @@ public class Main {
                             System.out.println("An error occured. The account was not created.");
                         else{
                            System.out.println("Account successfully created!");
-                           LoginCollection.insertPatronLogin(AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail()));
+                           p1 = AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail());
+                           LoginCollection.insertPatronLogin(p1);
+                           Login l = LoginCollection.searchPatronLogin(p1.getId());
+                           //Output anything you want with Login l and p1
+                           
                         }               
                     break;
                 default:
