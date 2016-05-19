@@ -185,16 +185,15 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pFname = ? "
-                    + "WHERE pID = ?";
+            mySQL = "UDPATE patron set pFname = ? WHERE pID = ?";
 
             try {
                 myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newFname);
-                prepMySQL.setString(2, pID);
+                prepMySQL.setInt(2, Integer.parseInt(pID));
 
-                rowsAffected = prepMySQL.executeUpdate();
+                prepMySQL.executeUpdate();
 
                 prepMySQL.close();
                 myConn.close();
