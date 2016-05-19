@@ -28,7 +28,7 @@ public class IncomeJDBC {
 
         try {
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "    ");
 
         } catch (SQLException ex) {
 
@@ -36,6 +36,14 @@ public class IncomeJDBC {
         }
     }
 
+    /**
+     * @Author Adnan Alam 
+     * Insert Method<BR>
+     * Inserts a income object to data base to
+     * keep record.
+     * @param theIncome - object to be inserted
+     * @return boolean to see if successful or not
+     */
     public boolean insert(Income theIncome) {
 
         try {
@@ -65,6 +73,12 @@ public class IncomeJDBC {
         return true;
     }
 
+    /**
+     * @Author Adnan Alam
+     * View income by the type wanting to be viewed.
+     * @param type char representing the type of income wished to view
+     * @return 
+     */
     public ArrayList<Income> view(char type) {
         ArrayList<Income> array = new ArrayList<Income>();
 

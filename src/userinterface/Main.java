@@ -23,13 +23,14 @@ public class Main {
             + "1. Edit Your Account\n"
             + "2. Media Managment\n"
             + "3. Look up Accounts\n"
-            + "4. View Income\n"
+            + "4. View Yesterday's Income\n"
             + "5. Insert Income\n"
             + "6. Check Media Due Dates\n"
             + "7. Send Late Notifications\n"
             + "8. Send Due Date Notifications\n"
             + "9. Apply Late Fees\n"
-            + "10. Bill Account\n"
+            + "10. Bill Account.\n"
+            + "11. Make payment for Patron.\n"
             + "0. Logout";
     public static final String patronMenu = "\n=========MENU OPTIONS:=========\n"
             + "1. Edit Your Account\n"
@@ -162,6 +163,23 @@ public class Main {
                                         else
                                         {
                                             System.out.println("Something went wrong account was not billed.");
+                                        }
+                                        break;
+                                        
+                                    case 11:
+                                        System.out.println("Please enter the id of patron");
+                                        String iD = scan.next();
+                                        System.out.println("Please enter amount being paid by patron: " + iD);
+                                        double paying = scan.nextDouble();
+                                        System.out.println("What kind of payment is this?\nl for late fee\nd for damages\ng for donations.");
+                                        String type = scan.next();
+                                        if (account_collection.makePayment(iD, paying, type.charAt(0)))
+                                        {
+                                            System.out.println("Payment was applied successfully.");
+                                        }
+                                        else
+                                        {
+                                            System.out.println("Something went wrong. Payment was not applied");
                                         }
                                         break;
                                         

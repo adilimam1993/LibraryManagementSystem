@@ -37,6 +37,7 @@ public class Income {
     }
 
     /**
+     * @Author Elbin Martinez
      *getDate Method-- <BR> 
      * A function used to get the date payed for 
      * any type of payment 
@@ -48,6 +49,7 @@ public class Income {
     }
     
     /**
+     * @Author Elbin Martinez
      * getType Method-- <BR>
      * This method is used to return the type 
      * of payment was made
@@ -59,6 +61,7 @@ public class Income {
     }
     
     /**
+     * @Author Elbin Martinez
      * getId Method-- <BR>
      * This method returns the id of the patron
      * that made the payment
@@ -70,6 +73,7 @@ public class Income {
     }
     
     /**
+     * @Author Elbin Martinez
      * getAmountPaid Method--
      * This method will return a double 
      * representing the amount that was paid
@@ -81,6 +85,7 @@ public class Income {
     }
     
     /**
+     * @Author Elbin Martinez
      * toString Method-- <BR>
      * This method will return the status of the
      * object by returning a string with all information

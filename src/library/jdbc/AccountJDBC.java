@@ -6,11 +6,12 @@ import javax.sql.*;
 import library.account.*;
 import library.account.TypeSafe;
 import java.util.Date;
+import library.income.*;
 
 public class AccountJDBC {
     private static String dbUrl = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
     private static String dbUsername = "root";
-    private static String dbPassword = "";
+    private static String dbPassword = "    ";
     private static Connection myConn = null;
 
     public AccountJDBC() {
@@ -615,6 +616,52 @@ public class AccountJDBC {
 		}
 		return true;
 	}
+        
+        
+        /**
+         * @Author Elbin Martinez
+         * This method will lower balance of patron 
+         * by the amount passed also make a record in the income
+         * table of that payment.
+         * @param id - patron id who is making payment
+         * @param amountPaid  amount he is paying 
+         * @param typePayment - what type of payment is he making
+         * @return 
+         */
+        public boolean makePayment(String id, double amountPaid, char typePayment)
+        {
+            try{
+			connect();
+			String query = "select * from patron where pID = ?";
+			PreparedStatement stmt = myConn.prepareStatement(query);
+			stmt.setString(1,id);
+			ResultSet rs = stmt.executeQuery();
+			double current = 0;
+			if (rs.next())
+			{
+			current = rs.getDouble("pBalance");
+			}
+			current = current - amountPaid;
+			String query1 = "update patron set pBalance = ? where pID = ?";
+			PreparedStatement prestmt = myConn.prepareStatement(query1);
+			prestmt.setDouble(1, current);
+			prestmt.setString(2, id);
+			
+			prestmt.executeUpdate();
+                        
+                        IncomeCol iDB = new IncomeCol();
+                        iDB.insert(new Income(id,typePayment,amountPaid,new Date()));
+                        
+			
+			
+		}
+		catch(SQLException ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+            return true;
+        }
 }
 
 

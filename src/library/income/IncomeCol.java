@@ -28,6 +28,7 @@ public class IncomeCol {
 	}
 
 	/**
+         * @Author Adnan Alam
 	 * Insert Method-- <BR>
 	 * insert a income to the collection
 	 * @param payment, Income object to be inserted
@@ -41,6 +42,7 @@ public class IncomeCol {
 	}
 
 	/**
+         * @Author Adnan Alam
 	 * view method-- <BR>
 	 * will return a ArrayList of Incomes with the matched
 	 * type wanted (* for all, l for late fee, d for damages, g for donations)
@@ -87,6 +89,7 @@ public class IncomeCol {
 	}
 	
 	/**
+         * @Author Elbin Martinez
 	 * toString Method-- <BR>
 	 * this method shows the status of the collection
 	 * @return String, holding status of the object

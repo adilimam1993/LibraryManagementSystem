@@ -195,6 +195,22 @@ public class AccountCollection {
             AccountJDBC jdb= new AccountJDBC();
             return jdb.updateBalance(id, amount);
          }
+         
+         /**
+         * @Author Elbin Martinez
+         * This method will lower balance of patron 
+         * by the amount passed also make a record in the income
+         * table of that payment.
+         * @param id - patron id who is making payment
+         * @param amountPaid  amount he is paying 
+         * @param typePayment - what type of payment is he making
+         * @return 
+         */
+         public boolean makePayment(String id, double amountPaid, char typePayment)
+         {
+             AccountJDBC jdb= new AccountJDBC();
+            return jdb.makePayment(id, amountPaid, typePayment);
+         }
 	 
 	 
 }
