@@ -95,6 +95,7 @@ public class AccountJDBC {
                 + "VALUES (?,?,?,?,?)";
         
         try {
+            AccountJDBC.connect();
             prepMySQL = myConn.prepareStatement(mySQL);
             prepMySQL.setString(1, fName);
             prepMySQL.setString(2, lName);
@@ -104,6 +105,8 @@ public class AccountJDBC {
             
             successful = prepMySQL.execute();
             
+            prepMySQL.close();
+            myConn.close();
         }
         
         catch (Exception exc) {
@@ -111,7 +114,7 @@ public class AccountJDBC {
             return false;
         }
         
-        return true;   
+        return true;      
     }
     
     /*
@@ -139,8 +142,33 @@ public class AccountJDBC {
 	 * @param  patron  PatronAccount object
 	 * @return  returns either success or failed value.
 	 */
-	public static boolean updatePatron(Account patron) {
-	    return SUCCESS;
+	public static boolean updatePatronFname(String pID, String newFname) {
+            int rowsAffected = 0;
+            boolean successful = false;
+            String mySQL;
+            PreparedStatement prepMySQL;
+
+            mySQL = "UDPATE patron set pFname = ? "
+                    + "WHERE pID = ?";
+
+            try {
+                AccountJDBC.connect();
+                prepMySQL = myConn.prepareStatement(mySQL);
+                prepMySQL.setString(1, newFname);
+                prepMySQL.setString(2, pID);
+
+                rowsAffected = prepMySQL.executeUpdate();
+
+                prepMySQL.close();
+                myConn.close();
+            }
+
+            catch (Exception exc) {
+                exc.printStackTrace();
+                return false;
+            }
+
+            return true; 
 	}
         
         
