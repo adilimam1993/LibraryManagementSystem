@@ -287,7 +287,7 @@ public class AccountJDBC {
             return true; 
 	}
         
-        public static boolean updatePatronFname(String pID, Double newBalance) {
+        public static boolean updatePatronBalance(String pID, Double newBalance) {
             int rowsAffected = 0;
             boolean successful = false;
             String mySQL;
