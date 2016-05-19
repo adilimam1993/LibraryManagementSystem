@@ -95,7 +95,7 @@ public class AccountJDBC {
                 + "VALUES (?,?,?,?,?)";
         
         try {
-            AccountJDBC.connect();
+            myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             prepMySQL = myConn.prepareStatement(mySQL);
             prepMySQL.setString(1, fName);
             prepMySQL.setString(2, lName);
@@ -142,6 +142,43 @@ public class AccountJDBC {
 	 * @param  patron  PatronAccount object
 	 * @return  returns either success or failed value.
 	 */
+        
+        public static boolean updatePatron(PatronAccount p1) {
+            int rowsAffected = 0;
+            boolean successful = false;
+            String mySQL;
+            PreparedStatement prepMySQL;
+
+            mySQL = "UDPATE patron set "
+                    + "pFname = ?, "
+                    + "pLname = ?, "
+                    + "pPhone = ?, "
+                    + "pEmail = ? "
+                    + "WHERE pID = ?";
+
+            try {
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+                prepMySQL = myConn.prepareStatement(mySQL);
+                prepMySQL.setString(1, p1.getFirstName());
+                prepMySQL.setString(1, p1.getLastName());
+                prepMySQL.setString(1, p1.getPhoneNumber());
+                prepMySQL.setString(1, p1.getEmail());
+                prepMySQL.setInt(5, Integer.parseInt(p1.getId()));
+
+                rowsAffected = prepMySQL.executeUpdate();
+
+                prepMySQL.close();
+                myConn.close();
+            }
+
+            catch (Exception exc) {
+                exc.printStackTrace();
+                return false;
+            }
+
+            return true; 
+	}
+        
 	public static boolean updatePatronFname(String pID, String newFname) {
             int rowsAffected = 0;
             boolean successful = false;
@@ -152,7 +189,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newFname);
                 prepMySQL.setString(2, pID);
@@ -181,7 +218,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newLname);
                 prepMySQL.setString(2, pID);
@@ -210,7 +247,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newPhone);
                 prepMySQL.setString(2, pID);
@@ -239,7 +276,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newEmail);
                 prepMySQL.setString(2, pID);
@@ -268,7 +305,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setString(1, newAddress);
                 prepMySQL.setString(2, pID);
@@ -297,7 +334,7 @@ public class AccountJDBC {
                     + "WHERE pID = ?";
 
             try {
-                AccountJDBC.connect();
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setDouble(1, newBalance);
                 prepMySQL.setString(2, pID);
@@ -349,38 +386,43 @@ public class AccountJDBC {
             ResultSet myRs = null;
             PatronAccount p1 = null;
 
-            mySQL = "SELECT * FROM library_system.patron "
-                    + "WHERE pId = ?";
+            mySQL = "SELECT * "
+                    + "FROM library_system.patron "
+                    + "WHERE pID = ?";
 
             try {
+                myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
                 prepMySQL = myConn.prepareStatement(mySQL);
                 prepMySQL.setInt(1, Integer.parseInt(key));
 
                 myRs = prepMySQL.executeQuery();
                 
                 if(myRs.next()){
-            /*    
-                System.out.println(myRs.getString(1));
-                System.out.println(myRs.getString(2));
-                System.out.println(myRs.getString(3));
-                System.out.println(myRs.getString(4));
-                System.out.println(myRs.getString(5));
-                System.out.println(myRs.getString(6));
-                System.out.println(myRs.getString(7));
-            */                   
+                
+                //myRs.next();
+                
+//                System.out.println(myRs.getString(1));
+//                System.out.println(myRs.getString(2));
+//                System.out.println(myRs.getString(3));
+//                System.out.println(myRs.getString(4));
+//                System.out.println(myRs.getString(5));
+//                System.out.println(myRs.getString(6));
+//                System.out.println(myRs.getString(7));
+                               
               
                     p1 = new PatronAccount(
-                        myRs.getString(1),
+                        myRs.getInt(1)+"",
                         myRs.getString(2),
                         myRs.getString(3),
                         myRs.getString(4),
                         myRs.getString(5),
                         myRs.getString(6),
                         myRs.getDouble(7));
-                                
-                
+                    
+                    prepMySQL.close();
+                    myConn.close();
                 }
-                return p1;
+                return p1;  
             }
             catch (Exception exc) {
                 exc.printStackTrace();

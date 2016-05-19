@@ -78,6 +78,13 @@ public class PatronAccount extends Account {
         this.accountBalance = balance;
     }
     
+    public PatronAccount(PatronAccount p1){
+    	super(p1.getId(), p1.getFirstName(), p1.getLastName(), p1.getPhoneNumber());
+        this.email = p1.getEmail();
+        this.address = p1.getAddress();
+        this.accountBalance = p1.getAccountBalance();
+    }
+    
     /**
      * Returns the First Name associated with the account.
      * 
@@ -265,5 +272,167 @@ public class PatronAccount extends Account {
         
         return p1;
     }
+    
+    public String updateFirstName(){
+        Scanner scan = new Scanner(System.in);
+        String newName, prompt1 = "", prompt2 = "";
+        int choice;
+        boolean correct = false, success = false;
+        
+        while (!correct){
+            
+            prompt1 += "Please Enter a New First Name";
+            prompt1 += "\nCurrent First Name: " + getFirstName();
+            prompt1 += "\nNew First Name: ";
+            
+            newName = TypeSafe.name(prompt1);
+            
+            prompt2 += "You entered \"" + newName + "\". Is this correct?"
+                    + "\n1. Yes\n2. No\n3. Cancel";
+
+            choice = TypeSafe.posInt(prompt2);
+            
+            switch(choice){
+                case 1:
+                    success = AccountCollection.updatePatronFname(getId(), newName);
+                    correct = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    correct = true;
+                default:
+                    System.out.println("Sorry, \"" + choice + "\" is an invalid option.");
+                    break;
+            }
+            
+        }
+        if(success)
+            return "The account was not updated";
+        else
+            return "The account was updated successfully!";
+    }
+    
+    public String updateLastName(){
+        Scanner scan = new Scanner(System.in);
+        String newName, prompt1 = "", prompt2 = "";
+        int choice;
+        boolean correct = false, success = false;
+        
+        while (!correct){
+            
+            prompt1 += "Please Enter a New Last Name";
+            prompt1 += "\nCurrent Last Name: " + getFirstName();
+            prompt1 += "\nNew Last Name: ";
+            
+            newName = TypeSafe.name(prompt1);
+            
+            prompt2 += "You entered \"" + newName + "\". Is this correct?"
+                    + "\n1. Yes\n2. No\n3. Cancel";
+
+            choice = TypeSafe.posInt(prompt2);
+            
+            switch(choice){
+                case 1:
+                    success = AccountCollection.updatePatronLname(getId(), newName);
+                    correct = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    correct = true;
+                default:
+                    System.out.println("Sorry, \"" + choice + "\" is an invalid option.");
+                    break;
+            }
+            
+        }
+        if(success)
+            return "The account was not updated";
+        else
+            return "The account was updated successfully!";
+    }
+    
+    public String updateEmail(){
+        Scanner scan = new Scanner(System.in);
+        String newEmail, prompt1 = "", prompt2 = "";
+        int choice;
+        boolean correct = false, success = false;
+        
+        while (!correct){
+            
+            prompt1 += "Please Enter a New Email Address";
+            prompt1 += "\nCurrent Email Address: " + getFirstName();
+            prompt1 += "\nNew Email Address: ";
+            
+            newEmail = TypeSafe.email(prompt1);
+            
+            prompt2 += "You entered \"" + newEmail + "\". Is this correct?"
+                    + "\n1. Yes\n2. No\n3. Cancel";
+
+            choice = TypeSafe.posInt(prompt2);
+            
+            switch(choice){
+                case 1:
+                    success = AccountCollection.updatePatronEmail(getId(), newEmail);
+                    correct = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    correct = true;
+                default:
+                    System.out.println("Sorry, \"" + choice + "\" is an invalid option.");
+                    break;
+            }
+            
+        }
+        if(success)
+            return "The account was not updated";
+        else
+            return "The account was updated successfully!";
+    }
+    
+    public String updatePhone(){
+        Scanner scan = new Scanner(System.in);
+        String newPhone, formatPhone, prompt1 = "", prompt2 = "";
+        int choice;
+        boolean correct = false, success = false;
+        
+        while (!correct){
+            
+            prompt1 += "Please Enter a New Phone Number";
+            prompt1 += "\nCurrent Phone Number: " + getFirstName();
+            prompt1 += "\nNew Phone Number: ";
+            
+            newPhone = TypeSafe.validatePhone(prompt1);
+            
+            prompt2 += "You entered \"" + newPhone + "\". Is this correct?"
+                    + "\n1. Yes\n2. No\n3. Cancel";
+
+            choice = TypeSafe.posInt(prompt2);
+            
+            switch(choice){
+                case 1:
+                    success = AccountCollection.updatePatronPhone(getId(), newPhone.replaceAll("[^0-9]+", ""));
+                    correct = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    correct = true;
+                default:
+                    System.out.println("Sorry, \"" + choice + "\" is an invalid option.");
+                    break;
+            }
+            
+        }
+        if(success)
+            return "The account was not updated";
+        else
+            return "The account was updated successfully!";
+    }
+    
+            
 
 }
