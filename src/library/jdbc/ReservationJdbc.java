@@ -26,7 +26,7 @@ public class ReservationJdbc {
      */
     public void connect() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "rafa2012");
 
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -28,7 +28,7 @@ public class IncomeJDBC {
 
         try {
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "    ");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "rafa2012");
 
         } catch (SQLException ex) {
 

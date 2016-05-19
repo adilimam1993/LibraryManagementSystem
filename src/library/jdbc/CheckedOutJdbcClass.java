@@ -163,7 +163,7 @@ public class CheckedOutJdbcClass {
 
         String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
         String user = "root";
-        String password = "";
+        String password = "rafa2012";
 
         try {
             con = DriverManager.getConnection(url, user, password);

@@ -52,7 +52,7 @@ public class MediaJdbcClass {
             ex.printStackTrace();
         }
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false", "root", "rafa2012");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -231,11 +231,10 @@ public class MediaJdbcClass {
         connect(); // First, it must be connected to the database 
 
         try {
-            prepared = con.prepareStatement("insert into media (mediaTitle, "
-                    + "mediaYear, mediaCategory, mediaCost, mediaType, "
-                    + "mediaQuantity, mediaPublisher, mediaCode, bookEdition, "
-                    + "bookVolume, runningTime, movieDirector) values ("
-                    + "?,?,?,?,?,?,?,?,?,?,?,?)");
+            prepared = con.prepareStatement("update library_system.media set mediaTitle=?, "
+                    + "mediaYear=?, mediaCategory=?, mediaCost=?, mediaType=?, "
+                    + "mediaQuantity=?, mediaPublisher=?, bookEdition=?, "
+                    + "bookVolume=?, runningTime=?, movieDirector=? where mediaId=?");
 
             switch (type) {
                 case "b": {
@@ -252,10 +251,14 @@ public class MediaJdbcClass {
                     prepared.setString(9, editedMedia.getVolume());
                     prepared.setString(10, null);
                     prepared.setString(11, null);
+ 
                     prepared.setInt(12, editedMedia.getMediaId());
 
                     prepared.executeUpdate();
 
+                                       // System.out.println("MediaId= "+editedMedia.getMediaId());
+
+                   // System.out.println("in here");
                     break;
                 }
                 case "m": {
@@ -268,9 +271,9 @@ public class MediaJdbcClass {
                     prepared.setString(7, null); // mediaPublisher
                     prepared.setString(8, null); // bookISBN
                     prepared.setString(9, null); // bookEdition
-                    prepared.setString(10, null); // bookVolume
-                    prepared.setString(11, editedMedia.getRunning_time());
-                    prepared.setString(12, editedMedia.getDirector());
+                    prepared.setString(10, editedMedia.getRunning_time()); // bookVolume
+                    prepared.setString(11, editedMedia.getDirector());
+                    prepared.setInt(12, editedMedia.getMediaId());
                     prepared.executeUpdate();
                     break;
                 }
@@ -291,15 +294,17 @@ public class MediaJdbcClass {
                     prepared.setInt(12, editedMedia.getMediaId());
 
                     prepared.executeUpdate();
-
+                       
                     break;
 
                 }
+                
             }
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(MediaJdbcClass.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return false;
     }
 
     /**

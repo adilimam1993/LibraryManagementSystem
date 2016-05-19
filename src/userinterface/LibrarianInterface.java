@@ -5,10 +5,13 @@
  */
 package userinterface;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import library.account.Login;
 import library.account.LoginCollection;
 import library.jdbc.CheckedOutJdbcClass;
@@ -36,8 +39,8 @@ public class LibrarianInterface {
     public static Reservation reservation = new Reservation();
     public static ReservationCollection reservation_collection = new ReservationCollection();
     public static Login login;
-    public static MediaAcademic academic = new MediaAcademic();
-    public static MediaBook book = new MediaBook();
+    public static MediaAcademic academ = new MediaAcademic();
+    public static MediaBook b = new MediaBook();
     public static MediaMovie movie = new MediaMovie();
  public static Scanner scan = new Scanner(System.in);
        
@@ -140,26 +143,26 @@ public class LibrarianInterface {
                 int numOfAuthors = 0;
                 switch (op) {
                     case 1:
-                        academic.setMediaType("A");
+                        academ.setMediaType("A");
                         System.out.print("Type the title and press <ENTER>: ");
                         field = scan.nextLine();
-                        academic.setMediaTitle(field);
+                        academ.setMediaTitle(field);
                         System.out.print("Type the year of the publication and press <ENTER>: ");
                         field = scan.nextLine();
-                        academic.setMediaYear(field);
+                        academ.setMediaYear(field);
                         System.out.print("Type the publisher name and press <ENTER>: ");
                         field = scan.nextLine();
-                        academic.setAcademicPublisher(field);
+                        academ.setAcademicPublisher(field);
                         System.out.print("Type the type of academic material and press <ENTER>: ");
                         field = scan.next();
-                        academic.setCategory(field);
+                        academ.setCategory(field);
                         System.out.print("Type the cost of the material and press <ENTER>: ");
                         cost = scan.nextDouble();
                         skip = scan.nextLine();
-                        academic.setMediaCost(cost);
+                        academ.setMediaCost(cost);
                         System.out.print("Type the ISBN/DOI code: ");
                         field = scan.nextLine();
-                        academic.setAcademicISBN(field);
+                        academ.setAcademicISBN(field);
                         System.out.print("Type the number of authors for the media: ");
                         numOfAuthors = scan.nextInt();
                         skip = scan.nextLine();
@@ -170,41 +173,41 @@ public class LibrarianInterface {
                             field = scan.nextLine();
                             authors.add(field);
                         }
-                        academic.setAuthors(authors);
+                        academ.setAuthors(authors);
 
                         // Add media
-                        if (!media_jdbc.addMedia(academic)) {
+                        if (!media_jdbc.addMedia(academ)) {
                             return false;
                         } else {
                             System.out.println("Media was added successfully!");
                         }
                         break;
                     case 2:
-                        book.setMediaType("B");
+                        b.setMediaType("B");
                         System.out.print("Type the title and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setMediaTitle(field);
+                        b.setMediaTitle(field);
                         System.out.print("Type the year of the book and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setMediaYear(field);
+                        b.setMediaYear(field);
                         System.out.print("Type the publisher name and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setPublisher(field);
+                        b.setPublisher(field);
                         System.out.print("Type the type of book and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setCategory(field);
+                        b.setCategory(field);
                         System.out.print("Type the edition and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setBookEdition(field);
+                        b.setBookEdition(field);
                         System.out.print("Type the volume and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setBookVolume(field);
+                        b.setBookVolume(field);
                         System.out.print("Type the ISBN and press <ENTER>: ");
                         field = scan.nextLine();
-                        book.setIsbn(field);
+                        b.setIsbn(field);
                         System.out.print("Type the cost of the material and press <ENTER>: ");
                         cost = scan.nextDouble();
-                        book.setMediaCost(cost);
+                        b.setMediaCost(cost);
                         System.out.print("Type the number of authors for the media: ");
                         numOfAuthors = scan.nextInt();
                         skip = scan.nextLine();
@@ -215,10 +218,10 @@ public class LibrarianInterface {
                             field = scan.nextLine();
                             authors.add(field);
                         }
-                        book.setAuthors(authors);
+                        b.setAuthors(authors);
 
                         // Add media
-                        if (!media_jdbc.addMedia(book)) {
+                        if (!media_jdbc.addMedia(b)) {
                             return false;
                         } else {
                             System.out.println("Media was added successfully!");
@@ -341,20 +344,157 @@ public class LibrarianInterface {
     }
 
     public static boolean editingModule() {
-        int mediaID;
+        int mediaID=0;
+        int mediaType=0;
+        String input=null;
+        double cost;
+        int qty;
+        String skip;
         Scanner scan = new Scanner(System.in);
-
-        if (searchingModule(media_jdbc)) {
+        
+          if (searchingModule(media_jdbc)) {
             System.out.println("Type the media ID for the media you want to edit: ");
             mediaID = scan.nextInt();
+    System.out.println(mediaID);
+           
+            
+            System.out.println("Select media type you want to edit: \n1.Book\n2.Movie\n3.Academic\n");
+            mediaType = scan.nextInt();
+     skip = scan.nextLine();
+                       
+           // System.out.println(mediaId);
             // retrieve data
-        }
+        
+          
+         switch(mediaType)
+         {
+             case 1:
+             {     MediaBook b=new MediaBook();    
+                        b.setMediaId(mediaID);
+                        b.setMediaType("b");
+                        System.out.print("Type the title and press <ENTER>: ");
+                        input = scan.nextLine();
+                        System.out.println(input);
+                                    
+                        b.setMediaTitle(input);
+                        System.out.print("Type the year of the book and press <ENTER>: ");
+                        input = scan.nextLine();
+                        b.setMediaYear(input);
+                        System.out.println(input);
+                      
+                        System.out.print("Type the publisher name and press <ENTER>: ");
+                        input = scan.nextLine();
+                        LibrarianInterface.b.setPublisher(input);
+                        System.out.print("Type the type of book and press <ENTER>: ");
+                        input= scan.nextLine();
+                        System.out.println(input);
+                      
+                        b.setCategory(input);
+                        
+                        System.out.print("Type the edition and press <ENTER>: ");
+                        input= scan.nextLine();
+                        b.setBookEdition(input);
+                        System.out.println(input);
+                      
+                        System.out.print("Type the volume and press <ENTER>: ");
+                        input = scan.nextLine();
+                        b.setBookVolume(input);
+                        System.out.print("Type the cost of the material and press <ENTER>: ");
+                        cost = scan.nextDouble();
+                        b.setMediaCost(cost);
+  
+                     //   media_jdbc.editMedia(b);
+                       if (!media_jdbc.editMedia(b)) {
+                            return false;
+                        
+             }
+                        else {
+                            System.out.println("Media was edited successfully!");
+                        }
+
+                break;             
+             }
+             case 2:
+             {
+                 MediaMovie mov=new MediaMovie();
+                mov.setMediaId(mediaID);
+                        
+                 movie.setMediaType("m");
+                        System.out.println(movie.getMediaType());
+                        System.out.print("Type the title and press <ENTER>: ");
+                        input = scan.nextLine();
+                        movie.setMediaTitle(input);
+                        System.out.print("Type the year of the movie and press <ENTER>: ");
+                        input = scan.nextLine();
+                        movie.setMediaYear(input);
+                        System.out.print("Type the movie genre: ");
+                        input = scan.nextLine();
+                        movie.setCategory(input);
+                        System.out.print("Type the director name and press <ENTER>: ");
+                        input = scan.nextLine();
+                        movie.setDirector(input);
+                        System.out.print("Type the running time and press <ENTER>: ");
+                        input = scan.nextLine();
+                        movie.setRunning_time(input);
+                        System.out.print("Type the quantity available of this media and press <ENTER>: ");
+                        qty = scan.nextInt();
+                        movie.setQuantity(qty);
+                        System.out.print("Type the cost of the material and press <ENTER>: ");
+                        cost = scan.nextDouble();
+                        movie.setMediaCost(cost);
+                        if (!media_jdbc.editMedia(mov)) {
+                            return false;
+                        } else {
+                            System.out.println("Media was edited successfully!");
+                        }
+            break;
+                  
+         
+         }
+             case 3:
+             {
+                 MediaAcademic academ=new MediaAcademic();       
+                 academ.setMediaId(mediaID);
+               
+                 LibrarianInterface.academ.setMediaType("a");
+                        System.out.print("Type the title and press <ENTER>: ");
+                        input = scan.nextLine();
+                        academ.setMediaTitle(input);
+                        System.out.print("Type the year of the publication and press <ENTER>: ");
+                        input = scan.nextLine();
+                        LibrarianInterface.academ.setMediaYear(input);
+                        System.out.print("Type the publisher name and press <ENTER>: ");
+                        input= scan.nextLine();
+                        LibrarianInterface.academ.setAcademicPublisher(input);
+                        System.out.print("Type the type of academic material and press <ENTER>: ");
+                        input = scan.next();
+                        LibrarianInterface.academ.setCategory(input);
+                        System.out.print("Type the cost of the material and press <ENTER>: ");
+                        cost = scan.nextDouble();
+                        skip = scan.nextLine();
+                        LibrarianInterface.academ.setMediaCost(cost);
+                        System.out.print("Type the ISBN/DOI code: ");
+                        input = scan.nextLine();
+                        LibrarianInterface.academ.setAcademicISBN(input);
+             
+                        if (!media_jdbc.editMedia(academ)) {
+                            return false;
+                        } else {
+                            System.out.println("Media was edited successfully!");
+                        }
+           break;  
+             
+             
+             }
+         }
+          }
         return true;
     }
 
     public static boolean renewingModule() {
         int mediaID;
         int patronID;
+        CheckedOutJdbcClass check=new CheckedOutJdbcClass();
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Type the patron ID: ");
@@ -363,7 +503,7 @@ public class LibrarianInterface {
         System.out.println("Type the media ID to renew: ");
         mediaID = scan.nextInt();
         // renew media
-
+check.renewMedia(patronID,mediaID);
         return true;
     }
 

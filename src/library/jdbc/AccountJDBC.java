@@ -11,7 +11,7 @@ import library.income.*;
 public class AccountJDBC {
     private static String dbUrl = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
     private static String dbUsername = "root";
-    private static String dbPassword = "    ";
+    private static String dbPassword = "rafa2012";
     private static Connection myConn = null;
 
     public AccountJDBC() {
