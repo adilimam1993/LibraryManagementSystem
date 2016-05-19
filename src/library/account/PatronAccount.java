@@ -209,18 +209,14 @@ public class PatronAccount extends Account {
         v7 = US_DOLLAR.format(getAccountBalance());
         
         
-        v4 = "(" + tPhone.substring(0, 3) + ") "
-                + tPhone.substring(3, 6)
-                + "-" + tPhone.substring(6);
-        
-        return String.format("ID: %s %n"
-                + "First Name: %s %n"
-                + "Last Name: %s %n"
-                + "Tel. Number: %s %n"
-                + "E-mail Address: %s %n"
-                + "Street Address: %s %n"
-                + "Account Balance: %s %n"
-                ,v1,v2,v3,v4,v5,v6,v7);
+        return    "\nID: " + v1
+                + "\nFirst Name: "+ v2
+                + "\nLast Name: "+ v3
+                + "\nTel. Number: "+ tPhone
+                + "\nE-mail Address: "+ v5
+                + "\nStreet Address: "+ v6
+                + "\nAccount Balance: "+ v7
+                ;
     }
     
     
@@ -262,9 +258,7 @@ public class PatronAccount extends Account {
         
         PatronAccount p1 = new PatronAccount(firstName, lastName, phoneNumber, address, email);
         
-        //AccountJDBC a1 = new AccountJDBC();
-        
-        AccountJDBC.connect();
+       
         boolean result = AccountCollection.insertPatron(p1);
         
         if(!result)
@@ -288,7 +282,7 @@ public class PatronAccount extends Account {
             newName = TypeSafe.name(prompt1);
             
             prompt2 += "You entered \"" + newName + "\". Is this correct?"
-                    + "\n1. Yes\n2. No\n3. Cancel";
+                    + "\n1. Yes\n2. No\n3. Cancel\n";
 
             choice = TypeSafe.posInt(prompt2);
             
@@ -308,9 +302,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updateLastName(){
@@ -348,9 +342,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updateEmail(){
@@ -388,9 +382,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updatePhone(){
@@ -428,9 +422,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
             

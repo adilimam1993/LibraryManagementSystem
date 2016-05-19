@@ -192,8 +192,8 @@ public class AccountCollection {
          public boolean updateBalance(String id, double amount)
          {
              //Account jdbc to bridge methods
-            AccountJDBC jdb= new AccountJDBC();
-            return jdb.updateBalance(id, amount);
+            
+            return AccountJDBC.updateBalance(id, amount);
          }
          
          /**

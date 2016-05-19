@@ -11,7 +11,7 @@ public class LoginJDBC {
 	
 	private static String url = "jdbc:mysql://localhost:3306/library_system?autoReconnect=true&useSSL=false";
 	private static String username = "root";
-	private static String password = "";
+	private static String password = "    ";
         
 	
 	/**
@@ -172,9 +172,9 @@ public class LoginJDBC {
 			statement.execute();
 			
 		
-				statement.close();
+			statement.close();
 			
-				connection.close();
+			connection.close();
 		
 		} catch (Exception e) {
 			return false;
@@ -215,7 +215,7 @@ public class LoginJDBC {
 			statement.close();
 			connection.close();
 		
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			//if any issues return false to signal failure
 			return false;
 		}
@@ -229,17 +229,22 @@ public class LoginJDBC {
 	 		
 	 		Connection connection = DriverManager.getConnection(url,username,password);
 			
-	 		String sql =("select * from patron_login WHERE patronId = ?");
+	 		String sql =("select * from patron_login where patronId = ?");
 			
 	 		PreparedStatement statement = connection.prepareStatement(sql);
 	 		
-	 		statement.setInt(1, Integer.parseInt(id));
+	 		statement.setString(1, id);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
-			
+			if(set.next())
+                            a = new Login(set.getString(1),set.getString(2),set.getString(3));
+			else
+                            System.out.println("Invalid username password combonation");
+                        
+                        statement.close();
+                        set.close();
+                        connection.close();
 	 	}catch(Exception e){
 	 		e.printStackTrace();
 	 	}
@@ -259,12 +264,16 @@ public class LoginJDBC {
 	 		statement.setString(1, id);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
 			
+                        if (set.next())
+                            a = new Login(set.getString(2),set.getString(3),set.getString(1));
+                        else{
+                            System.out.println("There is no such staff login account");
+                        }
 	 	}catch(Exception e){
 	 		e.printStackTrace();
+                        
 	 	}
 		return a;
 	}
@@ -281,10 +290,12 @@ public class LoginJDBC {
 	 		statement.setString(1, user);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
-			
+			if (set.next())
+                            a = new Login(set.getString(2),set.getString(3),set.getString(1));
+                        else{
+                            System.out.println("There is no such staff login account");
+                        }
 	 	}catch(Exception e){
 	 		e.printStackTrace();
                         
@@ -304,9 +315,11 @@ public class LoginJDBC {
 	 		statement.setString(1, user);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
-			
-			a = new Login(set.getString(1),set.getString(2),set.getString(3));
+		
+			if(set.next())
+                            a = new Login(set.getString(1),set.getString(2),set.getString(3));
+			else
+                            System.out.println("Invalid username password combonation");
 			
 	 	}catch(Exception e){
 	 		e.printStackTrace();

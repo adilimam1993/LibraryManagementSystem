@@ -101,6 +101,7 @@ public class LoginCollection {
                     if(l.getPassword().equals(password))
 			return l;
                     else{
+                        System.out.println("\nInvalid Password");
 			return null;
                     }
                 }
@@ -121,5 +122,8 @@ public class LoginCollection {
                 else{
                     return null;
                 }
+    }
+    public static Login searchPatronUsername(String user){
+        return LoginJDBC.searchPatronUsername(user);
     }
 }
