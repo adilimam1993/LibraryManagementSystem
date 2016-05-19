@@ -122,4 +122,7 @@ public class LoginCollection {
                     return null;
                 }
     }
+    public static Login searchPatronUsername(String user){
+        return LoginJDBC.searchPatronUsername(user);
+    }
 }

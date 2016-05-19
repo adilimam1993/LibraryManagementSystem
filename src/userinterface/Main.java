@@ -1,11 +1,8 @@
 package userinterface;
 
-import java.sql.SQLException;
 import library.account.LoginCollection;
 import library.account.PatronAccount;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import library.account.Login;
 import library.income.IncomeCol;
 import static userinterface.LibrarianInterface.librarianInterface;
@@ -14,6 +11,7 @@ import library.income.*;
 import java.util.Date;
 import java.util.InputMismatchException;
 import library.account.*;
+import library.jdbc.LoginJDBC;
 import library.media.CheckedOutCollection;
 
 public class Main {
@@ -22,7 +20,7 @@ public class Main {
             "\n\n\n=========MENU OPTIONS:=========\n"
             + "1. Edit Your Account\n"
             + "2. Media Managment\n"
-            + "3. Look up Accounts\n"
+            + "3. Edit Other Accounts\n"
             + "4. View Income\n"
             + "5. Insert Income\n"
             + "6. Check Media Due Dates\n"
@@ -34,6 +32,7 @@ public class Main {
     public static final String patronMenu = "\n=========MENU OPTIONS:=========\n"
             + "1. Edit Your Account\n"
             //Add use cases for patron
+            
             + "0. Logout";;
 
     public static void main(String[] args) {
@@ -58,7 +57,7 @@ public class Main {
                     "\n\n\n=========MENU OPTIONS:=========\n"
                     + "1. Staff Login\n"
                     + "2. Patron Login\n"
-                    + "3. Recover Password\n"
+                    + "3. Temp Password\n"
                     + "0. Exit\n"
                     + "Type an option: ");
             try{
@@ -231,17 +230,7 @@ public class Main {
                     break;
                     
                 case 3:
-                    PatronAccount p1 = PatronAccount.createPatronAccount();
-                        if(p1 == null)
-                            System.out.println("An error occured. The account was not created.");
-                        else{
-                           System.out.println("Account successfully created!");
-                           p1 = AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail());
-                           LoginCollection.insertPatronLogin(p1);
-                           Login l = LoginCollection.searchPatronLogin(p1.getId());
-                           //Output anything you want with Login l and p1
-                           
-                        }               
+                    tempPassword(scan);
                     break;
                 default:
                     print("Invaild Input!");
@@ -256,12 +245,19 @@ public class Main {
     }
 
     private static void staffAccountInterface(Scanner scan, Login login) {
-        System.out.println("1. View Login");
-        System.out.println("2. Change Password");
-        print("0. Exit");
+        System.out.println("\n\n\n=========MENU OPTIONS:=========\n"
+                + "1. View Login\n"
+                + "2. Change Password\n"
+                + "3. Create New Patron Account\n"
+                + "0. Exit");
         int input;
         do {
-            input = scan.nextInt();
+           try{
+                input = scan.nextInt();
+            }catch(InputMismatchException e){
+                input = -1;
+                scan.next();
+            }
             switch (input) {
 
 //              -----------------------
@@ -274,6 +270,9 @@ public class Main {
                     break;
                 case 2:
                     changePassword(login);
+                    break;
+                case 3:
+                    makeAccount();
                     break;
                 default:
                     print("Invalid input!");
@@ -308,17 +307,17 @@ public class Main {
     }
 
     private static void patronAccountInterface(Scanner scan, Login login, PatronAccount p1) {
-        
-        System.out.println("\n==============================\n1. View Login");
-        System.out.println("2. Change Password");
-        System.out.println("3. Change First Name");
-        System.out.println("4. Change Last Name");
-        System.out.println("5. Change Phone Number");
-        System.out.println("6. Change Email Address");
-        System.out.println("7. Change Street Address");
-        print("0. Exit");
+      
         int input;
         do {
+            System.out.println("\n==============================\n1. View Login");
+            System.out.println("2. Change Password");
+            System.out.println("3. Change First Name");
+            System.out.println("4. Change Last Name");
+            System.out.println("5. Change Phone Number");
+            System.out.println("6. Change Email Address");
+            System.out.println("7. Change Street Address");
+            print("0. Exit");
             input = scan.nextInt();
             switch (input) {
 
@@ -382,16 +381,28 @@ public class Main {
         System.out.print("ID: ");
         String id = scan.next();
         
-        Login l = LoginCollection.searchPatronLogin(id);
+        //Login j = LoginCollection.searchPatronUsername(user);
+        Login j = LoginCollection.searchPatronLogin(id);
+        print(j.toString());
         
-        if(l != null){
-            if(l.getUsername().equals(user)){
+        if(j.getUsername().equals(user)){
                 LoginCollection.updatePatronLogin(id, user, user+id);
                 System.out.print("\nNew Password: " +user+id);
-            }
         }else{
-            System.out.println("Could not find Login with id provided");
+            System.out.println("Could not find Login with information provided");
         }
         
+    }
+    public static void makeAccount(){
+        PatronAccount p1 = PatronAccount.createPatronAccount();
+        if(p1 == null)
+            System.out.println("An error occured. The account was not created.");
+        else{
+            System.out.println("Account successfully created!");
+            p1 = AccountCollection.searchPatron(p1.getFirstName(), p1.getLastName(), p1.getEmail());
+            LoginCollection.insertPatronLogin(p1);
+            Login l = LoginCollection.searchPatronLogin(p1.getId());
+            //Output anything you want with Login l and p1                  
+        }             
     }
 }

@@ -229,16 +229,16 @@ public class LoginJDBC {
 	 		
 	 		Connection connection = DriverManager.getConnection(url,username,password);
 			
-	 		String sql =("select * from patron_login WHERE patronId = ?");
+	 		String sql =("select * from patron_login where patronId = ?");
 			
 	 		PreparedStatement statement = connection.prepareStatement(sql);
 	 		
-	 		statement.setInt(1, Integer.parseInt(id));
+	 		statement.setString(1, id);
 	 		
 			ResultSet set = statement.executeQuery();
 			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
+			a = new Login(set.getString(1),set.getString(2),set.getString(3));
 			
 	 	}catch(Exception e){
 	 		e.printStackTrace();
@@ -261,7 +261,7 @@ public class LoginJDBC {
 			ResultSet set = statement.executeQuery();
 			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
+                        a = new Login(set.getString(1),set.getString(2),set.getString(3));
 			
 	 	}catch(Exception e){
 	 		e.printStackTrace();

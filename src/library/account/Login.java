@@ -1,10 +1,5 @@
 package library.account;
 
-
-import library.account.PatronAccount;
-import library.account.StaffAccount;
-import library.account.Account;
-
 /**
  * The LoginManager class handles everything involved in Login for the system.
  * 
@@ -129,8 +124,9 @@ public class Login {
             return userID;
         }
 	
+        @Override
 	public String toString(){
-		return "Username: "+username +"\nPassword: "+password+"\n";
+		return "\n=======================\nUsername: "+username +"\nPassword: "+password+"\n" +"ID: " + userID+"\n=======================\n";
 	}
 		
 }
