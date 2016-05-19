@@ -61,9 +61,27 @@ public class AccountCollection {
 	 * @param  patron  PatronAccount object
 	 * @return  returns either success or failed value.
 	 */
-	public static boolean updatePatron(Account patron) {
-	    return SUCCESS;
-	}
+	public static boolean updatePatronFname(String pID, String newFname) {
+            return AccountJDBC.updatePatronFname(pID, newFname);
+        }
+        
+        public static boolean updatePatronLname(String pID, String newLname) {
+            return AccountJDBC.updatePatronLname(pID, newLname);
+        }
+        
+        public static boolean updatePatronPhone(String pID, String newPhone) {
+            return AccountJDBC.updatePatronPhone(pID, newPhone);
+        }
+
+        public static boolean updatePatronEmail(String pID, String newEmail) {
+            return AccountJDBC.updatePatronPhone(pID, newEmail);
+        }
+
+        public static boolean updatePatronAddress(String pID, String newAddress) {
+            return AccountJDBC.updatePatronPhone(pID, newAddress);
+        }
+         
+         
 
 	/**
 	 * Delete Patron Account
