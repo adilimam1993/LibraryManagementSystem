@@ -12,6 +12,7 @@ import static userinterface.LibrarianInterface.librarianInterface;
 import static userinterface.PatronInterface.patronInterface;
 import library.income.*;
 import java.util.Date;
+import java.util.InputMismatchException;
 import library.account.*;
 import library.media.CheckedOutCollection;
 
@@ -41,8 +42,14 @@ public class Main {
         String pass;
 
         while (!login) {
+            
             System.out.print("\n\n\n=========MENU OPTIONS:=========\n1. Staff Login\n2. Patron Login\n3. Register (Patron Only)\n0. Exit\nType an option: ");
-            input = scan.nextInt();
+            try{
+                input = scan.nextInt();
+            }catch(InputMismatchException e){
+                input = -1;
+                scan.next();
+            }
             switch (input) {
                 case 0:
                     System.out.println("Bye bye!");
@@ -213,7 +220,7 @@ public class Main {
                         }               
                     break;
                 default:
-                    print("");
+                    print("Invaild Input!");
                     break;
             }
         }
@@ -277,7 +284,7 @@ public class Main {
     }
 
     private static void patronAccountInterface(Scanner scan, Login login) {
-        System.out.println("1. View Login");
+        System.out.println("\n==============================\n1. View Login");
         System.out.println("2. Change Password");
         print("0. Exit");
         int input;
@@ -294,7 +301,7 @@ public class Main {
                     System.out.println(login.toString());
                     break;
                 case 2:
-                    changePassword(login);
+                    changePasswordPatron(login);
                     break;
                 default:
                     print("Invalid input!");
@@ -305,5 +312,23 @@ public class Main {
 //              ----------------------  
             }
         } while (input != 0);
+    }
+    public static void changePasswordPatron(Login login) {
+        Scanner scan = new Scanner(System.in);
+        String curPass;
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Please enter your current password");
+            curPass = scan.next();
+            if (login.getPassword().equals(curPass)) {
+                System.out.println("Please enter your new password:");
+                String newPass = scan.next();
+                login.setPassword(newPass);
+                if (LoginCollection.updatePatronLogin(login.getId(), login.getUsername(), login.getPassword())) {
+                    System.out.println("Password Change Successful!!");
+                }
+                break;
+            }
+            System.out.println("Incorrect Password");
+        }
     }
 }
