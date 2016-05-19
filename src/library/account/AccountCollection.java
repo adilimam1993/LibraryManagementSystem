@@ -208,8 +208,7 @@ public class AccountCollection {
          */
          public boolean makePayment(String id, double amountPaid, char typePayment)
          {
-             AccountJDBC jdb= new AccountJDBC();
-            return jdb.makePayment(id, amountPaid, typePayment);
+            return AccountJDBC.makePayment(id, amountPaid, typePayment);
          }
 	 
 	 

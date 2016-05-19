@@ -586,7 +586,7 @@ public class AccountJDBC {
           * @param amountToAdd, the amount to be added to balance
           * @return boolean true if successful
           */
-	public boolean updateBalance(String id, double amountToAdd)
+	public static boolean updateBalance(String id, double amountToAdd)
 	{
 		try{
 			connect();
@@ -628,7 +628,7 @@ public class AccountJDBC {
          * @param typePayment - what type of payment is he making
          * @return 
          */
-        public boolean makePayment(String id, double amountPaid, char typePayment)
+        public static boolean makePayment(String id, double amountPaid, char typePayment)
         {
             try{
 			connect();
