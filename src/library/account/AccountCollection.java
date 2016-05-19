@@ -34,7 +34,7 @@ public class AccountCollection {
 	 */
 	public static boolean insertPatron(PatronAccount pAccount){
             //AccountJDBC a1 = new AccountJDBC();
-            AccountJDBC.connect();
+            //AccountJDBC.connect();
             boolean result = AccountJDBC.insertPatron(pAccount.getFirstName(),
                     pAccount.getLastName(),
                     pAccount.getPhoneNumber(),
@@ -61,6 +61,11 @@ public class AccountCollection {
 	 * @param  patron  PatronAccount object
 	 * @return  returns either success or failed value.
 	 */
+        
+        public static boolean updatePatron(PatronAccount p1) {
+            return updatePatron(p1);
+        }
+        
 	public static boolean updatePatronFname(String pID, String newFname) {
             return AccountJDBC.updatePatronFname(pID, newFname);
         }
@@ -107,6 +112,7 @@ public class AccountCollection {
 	 * @return  PatronAccount object.
 	 */
 	 public static PatronAccount searchPatronByID(String key) {
+ //            System.out.println("enter collection");
             return AccountJDBC.searchPatronByID(key);
 	 }
 	 

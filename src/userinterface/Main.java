@@ -31,7 +31,7 @@ public class Main {
             + "9. Apply Late Fees\n"
             + "10. Bill Account\n"
             + "0. Logout";
-    public static final String patronMenu = "\n\n\n=========MENU OPTIONS:=========\n"
+    public static final String patronMenu = "\n=========MENU OPTIONS:=========\n"
             + "1. Edit Your Account\n"
             //Add use cases for patron
             + "0. Logout";;
@@ -187,10 +187,11 @@ public class Main {
                         System.out.println("Could not login!");
                     } else {
                         login = true;
+                        p = AccountCollection.searchPatronByID(a.getId());
                         System.out.println("\n\n======== Welcome " + a.getUsername() + " ========");
 
                         while (login) {
-
+                            System.out.println("\n" + p);
                             System.out.println(patronMenu);
                             System.out.print("Please enter an option: ");
 
@@ -201,7 +202,7 @@ public class Main {
                                     System.out.println("Bye bye!");
                                     break;
                                 case 1:
-                                    patronAccountInterface(scan, a);
+                                    patronAccountInterface(scan, a, p);
                                     break;
                                 case 2:
                                     patronInterface(a);
@@ -306,9 +307,15 @@ public class Main {
 
     }
 
-    private static void patronAccountInterface(Scanner scan, Login login) {
+    private static void patronAccountInterface(Scanner scan, Login login, PatronAccount p1) {
+        
         System.out.println("\n==============================\n1. View Login");
         System.out.println("2. Change Password");
+        System.out.println("3. Change First Name");
+        System.out.println("4. Change Last Name");
+        System.out.println("5. Change Phone Number");
+        System.out.println("6. Change Email Address");
+        System.out.println("7. Change Street Address");
         print("0. Exit");
         int input;
         do {
@@ -325,6 +332,21 @@ public class Main {
                     break;
                 case 2:
                     changePasswordPatron(login);
+                    break;
+                case 3:
+                    p1.updateFirstName();
+                    break;
+                case 4:
+                    p1.updateLastName();
+                    break;
+                case 5:
+                    p1.updatePhone();
+                    break;
+                case 6:
+                    p1.updateEmail();
+                    break;
+                case 7:
+                    System.out.println("To change your address, please visit the front desk at the library.");
                     break;
                 default:
                     print("Invalid input!");

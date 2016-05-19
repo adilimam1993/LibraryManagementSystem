@@ -131,6 +131,32 @@ public static String phone(String prompt) {
     return userPhone;
 }
 
+public static String validatePhone(String prompt) {
+	Scanner scan = new Scanner(System.in);
+	String userPhone, userPhoneT;
+        boolean tryAgain;
+        
+        //temp code
+        do {
+            
+            tryAgain = false;
+                        
+            System.out.print(prompt);
+            userPhone = scan.nextLine();
+            
+            userPhoneT = userPhone.replaceAll("[^0-9]+", "");
+            
+            if (userPhoneT.length()>10 || userPhoneT.length()<10){
+                System.out.println("Your number you entered is invalid.\n\n");
+                tryAgain = true;
+            }
+                       
+        }while (tryAgain);
+    
+    return userPhone;
+}
+
+
 public static String address(String prompt) {
 	Scanner scan = new Scanner(System.in);
 	String userAddress;
