@@ -354,4 +354,22 @@ public class Main {
             System.out.println("Incorrect Password");
         }
     }
+    public static void tempPassword(Scanner scan){
+        System.out.print("Username: ");
+        String user = scan.next();
+        System.out.print("ID: ");
+        String id = scan.next();
+        
+        Login l = LoginCollection.searchPatronLogin(id);
+        
+        if(l != null){
+            if(l.getUsername().equals(user)){
+                LoginCollection.updatePatronLogin(id, user, user+id);
+                System.out.print("\nNew Password: " +user+id);
+            }
+        }else{
+            System.out.println("Could not find Login with id provided");
+        }
+        
+    }
 }
