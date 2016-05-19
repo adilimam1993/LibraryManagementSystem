@@ -32,8 +32,11 @@ public class Main {
     public static final String patronMenu = "\n=========MENU OPTIONS:=========\n"
             + "1. Edit Your Account\n"
             //Add use cases for patron
+            + "2. Library Interface\n"
+
             
-            + "0. Logout";;
+            + "5. Make Payment\n"
+            + "0. Logout";
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -108,9 +111,11 @@ public class Main {
                                         // look up other account
                                         break;
                                     case 4:
+                                        // SHOULD NOT BE HERE AT ALL (For STAFF ONLY)
                                         System.out.println(income_collection.view('*').toString());
                                         break;
                                     case 5:
+                                        // make this into a seperate method then put method in this case
                                         System.out.println("Please Insert Patron's Id\n");
                                         String tempId = scan.next();
                                         System.out.println("Please enter the type of payment g for donation d for damages l for latapayment\n");
@@ -213,7 +218,7 @@ public class Main {
                                 case 5:
                                     System.out.println("Please Insert Patron's Id\n");
                                     String tempId = scan.next();
-                                    System.out.println("Please enter the type of payment g for donation d for damages l for latapayment\n");
+                                    System.out.println("Please enter the type of payment, g for donation, d for damages l for latapayment\n");
                                     char typePay = scan.next().charAt(0);
                                     System.out.println("Please enter the amount being paid\n");
                                     double amount = scan.nextDouble();
