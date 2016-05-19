@@ -334,16 +334,16 @@ public class Main {
                     changePasswordPatron(login);
                     break;
                 case 3:
-                    p1.updateFirstName();
+                    System.out.println(p1.updateFirstName());
                     break;
                 case 4:
-                    p1.updateLastName();
+                    System.out.println(p1.updateLastName());
                     break;
                 case 5:
-                    p1.updatePhone();
+                    System.out.println(p1.updatePhone());
                     break;
                 case 6:
-                    p1.updateEmail();
+                    System.out.println(p1.updateEmail());
                     break;
                 case 7:
                     System.out.println("To change your address, please visit the front desk at the library.");
