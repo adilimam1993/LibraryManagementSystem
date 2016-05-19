@@ -209,18 +209,14 @@ public class PatronAccount extends Account {
         v7 = US_DOLLAR.format(getAccountBalance());
         
         
-        v4 = "(" + tPhone.substring(0, 3) + ") "
-                + tPhone.substring(3, 6)
-                + "-" + tPhone.substring(6);
-        
-        return String.format("ID: %s %n"
-                + "First Name: %s %n"
-                + "Last Name: %s %n"
-                + "Tel. Number: %s %n"
-                + "E-mail Address: %s %n"
-                + "Street Address: %s %n"
-                + "Account Balance: %s %n"
-                ,v1,v2,v3,v4,v5,v6,v7);
+        return    "\nID: " + v1
+                + "\nFirst Name: "+ v2
+                + "\nLast Name: "+ v3
+                + "\nTel. Number: "+ tPhone
+                + "\nE-mail Address: "+ v5
+                + "\nStreet Address: "+ v6
+                + "\nAccount Balance: "+ v7
+                ;
     }
     
     
