@@ -185,7 +185,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pFname = ? WHERE pID = ?";
+            mySQL = "UPDATE patron SET pFname = ? WHERE pID = ?";
 
             try {
                 myConn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
@@ -213,7 +213,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pLname = ? "
+            mySQL = "UPDATE patron set pLname = ? "
                     + "WHERE pID = ?";
 
             try {
@@ -242,7 +242,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pPhone = ? "
+            mySQL = "UPDATE patron set pPhone = ? "
                     + "WHERE pID = ?";
 
             try {
@@ -271,7 +271,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pEmail = ? "
+            mySQL = "UPDATE patron set pEmail = ? "
                     + "WHERE pID = ?";
 
             try {
@@ -300,7 +300,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pAddress = ? "
+            mySQL = "UPDATE patron set pAddress = ? "
                     + "WHERE pID = ?";
 
             try {
@@ -329,7 +329,7 @@ public class AccountJDBC {
             String mySQL;
             PreparedStatement prepMySQL;
 
-            mySQL = "UDPATE patron set pBalance = ? "
+            mySQL = "UPDATE patron set pBalance = ? "
                     + "WHERE pID = ?";
 
             try {
