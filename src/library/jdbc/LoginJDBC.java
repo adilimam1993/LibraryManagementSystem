@@ -172,9 +172,9 @@ public class LoginJDBC {
 			statement.execute();
 			
 		
-				statement.close();
+			statement.close();
 			
-				connection.close();
+			connection.close();
 		
 		} catch (Exception e) {
 			return false;
@@ -215,7 +215,7 @@ public class LoginJDBC {
 			statement.close();
 			connection.close();
 		
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			//if any issues return false to signal failure
 			return false;
 		}
@@ -236,10 +236,15 @@ public class LoginJDBC {
 	 		statement.setString(1, id);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-			a = new Login(set.getString(1),set.getString(2),set.getString(3));
-			
+			if(set.next())
+                            a = new Login(set.getString(1),set.getString(2),set.getString(3));
+			else
+                            System.out.println("Invalid username password combonation");
+                        
+                        statement.close();
+                        set.close();
+                        connection.close();
 	 	}catch(Exception e){
 	 		e.printStackTrace();
 	 	}
@@ -259,12 +264,16 @@ public class LoginJDBC {
 	 		statement.setString(1, id);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-                        a = new Login(set.getString(1),set.getString(2),set.getString(3));
 			
+                        if (set.next())
+                            a = new Login(set.getString(2),set.getString(3),set.getString(1));
+                        else{
+                            System.out.println("There is no such staff login account");
+                        }
 	 	}catch(Exception e){
 	 		e.printStackTrace();
+                        
 	 	}
 		return a;
 	}
@@ -281,10 +290,12 @@ public class LoginJDBC {
 	 		statement.setString(1, user);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
 			
-			a = new Login(set.getString(2),set.getString(3),set.getString(1));
-			
+			if (set.next())
+                            a = new Login(set.getString(2),set.getString(3),set.getString(1));
+                        else{
+                            System.out.println("There is no such staff login account");
+                        }
 	 	}catch(Exception e){
 	 		e.printStackTrace();
                         
@@ -304,9 +315,11 @@ public class LoginJDBC {
 	 		statement.setString(1, user);
 	 		
 			ResultSet set = statement.executeQuery();
-			set.next();
-			
-			a = new Login(set.getString(1),set.getString(2),set.getString(3));
+		
+			if(set.next())
+                            a = new Login(set.getString(1),set.getString(2),set.getString(3));
+			else
+                            System.out.println("Invalid username password combonation");
 			
 	 	}catch(Exception e){
 	 		e.printStackTrace();

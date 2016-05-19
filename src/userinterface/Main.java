@@ -83,7 +83,6 @@ public class Main {
 
                     if (a == null) {
                         login = false;
-                        System.out.println("Could not login!");
                     } else {
                         login = true;
                         System.out.println("\n\n======== Welcome " + a.getUsername() + " ========");
@@ -188,7 +187,6 @@ public class Main {
 
                     if (a == null) {
                         login = false;
-                        System.out.println("Could not login!");
                     } else {
                         login = true;
                         p = AccountCollection.searchPatronByID(a.getId());

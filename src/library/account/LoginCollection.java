@@ -101,6 +101,7 @@ public class LoginCollection {
                     if(l.getPassword().equals(password))
 			return l;
                     else{
+                        System.out.println("\nInvalid Password");
 			return null;
                     }
                 }
