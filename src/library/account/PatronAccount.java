@@ -284,7 +284,7 @@ public class PatronAccount extends Account {
             newName = TypeSafe.name(prompt1);
             
             prompt2 += "You entered \"" + newName + "\". Is this correct?"
-                    + "\n1. Yes\n2. No\n3. Cancel";
+                    + "\n1. Yes\n2. No\n3. Cancel\n";
 
             choice = TypeSafe.posInt(prompt2);
             
@@ -304,9 +304,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updateLastName(){
@@ -344,9 +344,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updateEmail(){
@@ -384,9 +384,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
     public String updatePhone(){
@@ -424,9 +424,9 @@ public class PatronAccount extends Account {
             
         }
         if(success)
-            return "The account was not updated";
-        else
             return "The account was updated successfully!";
+        else
+            return "The account was not updated";
     }
     
             
