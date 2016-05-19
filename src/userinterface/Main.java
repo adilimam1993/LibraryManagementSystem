@@ -112,6 +112,7 @@ public class Main {
                                     case 4:
                                         System.out.println(income_collection.view('*').toString());
                                         break;
+                                        //Added view of yesterdays income by Adnan Alam
                                     case 5:
                                         System.out.println("Please Insert Patron's Id\n");
                                         String tempId = scan.next();
